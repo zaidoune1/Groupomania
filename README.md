@@ -51,4 +51,11 @@
     Note that the development build is not optimized. 
     To create a production build, use npm run build.
 
+<<<<<<< HEAD
     Un onglet devrait s'ouvrir dans votre navigateur
+=======
+    Un onglet devrait s'ouvrir dans votre navigateur
+
+
+
+>>>>>>> 8667333f755d2b1d8716bdee31a9b0c4f8846d7a
