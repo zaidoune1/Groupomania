@@ -62,8 +62,7 @@ nav {
         margin-right:35px;
 
       }
-      li{
-        margin-left: 44px;      }
+      
       .welcome {
         transform: translateY(2px);
 
@@ -73,7 +72,19 @@ nav {
         }
         
         h5 {
+          clear: both;
+    display: inline-block;
+    overflow: hidden;
           font-family: $font-3;
+        
+          @media screen and(max-width: 768px) {
+            clear: both;
+    display: inline-block;
+    overflow: hidden;
+    
+font-size:9px;
+          font-family: $font-2;
+          }
         }
     
           .icons-bis {

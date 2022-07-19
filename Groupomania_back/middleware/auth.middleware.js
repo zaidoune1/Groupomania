@@ -40,7 +40,6 @@ module.exports.requireAuth = (req, res, next) => {
 };
 
 //vérification de la condition Administrateur de l'utilisateur
-
 module.exports.isPostAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
@@ -50,7 +49,9 @@ module.exports.isPostAuth = (req, res, next) => {
       if (!err) {
         let user = await UserModel.findById(decodedToken.id);
         let poster = await postModel.findById(req.params.id);
-        if (poster.posterId === user.id || user.role === "admin") {
+        let commenterId =  await postModel.findById(req.body.commenterId);
+
+        if (commenterId === user.id || poster.posterId === user.id || user.role === "admin") {
           res.locals.user = user;
           next();
         } else {
@@ -97,8 +98,10 @@ module.exports.isUploadAuth = (req, res, next) => {
       if (!err) {
         let requestingUser = await UserModel.findById(decodedToken.id);
         let updatingUser = await UserModel.findById(req.body.userId);
+        let CommenterUser = await postModel.findById(req.params.commenterId);
         if (
           requestingUser.id === updatingUser.id ||
+          requestingUser.id === CommenterUser.id ||
           requestingUser.role === "admin"
         ) {
           res.locals.user = updatingUser;

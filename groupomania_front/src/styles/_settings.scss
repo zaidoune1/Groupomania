@@ -45,6 +45,7 @@ textarea {
   resize: none;
   border-radius: 20px;
   width: 270px;
+  font-family: $font-1;
   background: $white;
 }
 textarea {
@@ -91,8 +92,14 @@ body {
 .error {
   color: red;
   font-weight: bold;
+  &::selection{
+    color:$white;
+  }
 }
 .success {
   color: green;
   font-weight: bold;
+  &::selection{
+    color:$white;
+  }
 }

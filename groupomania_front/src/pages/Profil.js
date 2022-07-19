@@ -14,6 +14,7 @@ const Profile = () => {
 
         <UpdateProfil /> 
     </div>
+    
     </div>
   );
 };

@@ -4,7 +4,7 @@ const fs = require("fs");
 
 //Obtenir les données de tous les utilisateurs
 module.exports.getAllUsers = async (req, res) => {
-  const users = await UserModel.find().select("-password, -email");
+  const users = await UserModel.find({}, {pseudo:true, picture:true, likes:true, createdAt:true, updatedAt: true, bio: true})
   //les données SAUF le mot de passe et email sont renvoyées, car ce sont des données qui pourraient permettre d'usurper l'identité d'un utilisateur
   res.status(200).json(users);
 };
@@ -16,10 +16,10 @@ module.exports.userInfo = (req, res) => {
     return res.status(400).send("ID unknown : " + req.params.id);
 
   UserModel.findById(req.params.id, (err, docs) => {
-    //Si l'id de la requête est valide je récupère les données de l'utilisateur concerné, sauf le mot de passe et l'email, pour des raisons de sécurité.
+    //Si l'id de la requête est valide je récupère les données de l'utilisateur concerné, sauf le mot de passe pour des raisons de sécurité.
     if (!err) res.send(docs);
     else console.log("ID unknown : " + err);
-  }).select("-password, -email");
+  }).select("-password");
 };
 
 //Updater le profil d'un utilisateur
@@ -46,24 +46,3 @@ module.exports.updateUser = async (req, res) => {
   }
 };
 
-//Supprimer un utilisateur //Cette fonction n'est pas proposée dans le front, mais elle pourrait être ajoutée en appelant la route concernée.
-/*module.exports.deleteUser = async (req, res) => {
-    if (!ObjectID.isValid(req.params.id))
-        return res.status(400).send('ID unknown : ' + req.params.id)
-
-    try {
-        const docs = await UserModel.findById(req.params.id)
-        if (!docs) console.log('Image non supprimée')
-        else fs.unlink(docs.picture, () => { })
-                
-    } catch(err) {
-        return console.error(err)
-    }
-
-    try {
-        await UserModel.remove({ _id: req.params.id }).exec()
-        res.status(200).json({ message: "Utilisateur Supprimé." })
-    } catch (err) {
-        return res.status(500).json({ message: err })
-    }
-}*/

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");
 
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       max: 1024,
-      minlength: 6,
+      minlength: 4,
     },
     picture: {
       type: String,
@@ -34,7 +35,7 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
       max: 1024,
-      default: "Présentez-vous!",
+      default: "Présentez-Vous!",
     },
     likes: {
       type: [String],
@@ -69,6 +70,7 @@ userSchema.statics.login = async function (email, password) {
   }
   throw Error("incorrect email");
 };
+userSchema.plugin(uniqueValidator); // Verification d'email unique
 
 const UserModel = mongoose.model("user", userSchema);
 

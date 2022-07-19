@@ -21,11 +21,11 @@ const Navbar = () => {
         </div>
         {uid ? (
           <ul>
-            <li></li>
+            
             <li className="welcome">
-              <NavLink to="/profil">
+
                 <h5> Bienvenue {userData.pseudo}</h5>
-              </NavLink>
+             
             </li>
             <li className="icons-bis">
               <NavLink to="/home" className="active-left-nav">

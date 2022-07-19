@@ -1,17 +1,12 @@
 .home {
-  //display: grid;
   width:800px;
   max-width: 1200px;
-  //place-items: center;
-  //grid-template-columns: 60px 1fr 374px;
   margin: auto;
-  //position: relative;
   @media screen and(min-width: 600px) {
     grid-template-columns: 1fr;
    margin: auto;    
   }
   @media screen and(max-width: 768px) {
-   //grid-template-columns: 300px 1fr;
    width:auto;
    margin: 0px 30px 50px;
 
@@ -89,5 +84,8 @@
     
     
   }
+  }
+  .loadmore{
+    margin-bottom: 20px;
   }
 

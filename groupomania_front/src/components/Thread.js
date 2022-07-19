@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../actions/post.actions";
-import Card from "./Post/Card";
 import { isEmpty } from "./Utils";
+import Card from "./Post/Card";
 
 const Thread = () => {
   const [loadPost, setLoadPost] = useState(true);
@@ -15,6 +15,7 @@ const Thread = () => {
       window.innerHeight + document.documentElement.scrollTop + 1 >
       document.scrollingElement.scrollHeight
     ) {
+      
       setLoadPost(true);
     }
   };
@@ -25,9 +26,8 @@ const Thread = () => {
       setLoadPost(false);
       setCount(count + 5);
     }
-
     window.addEventListener("scroll", loadMore);
-    return () => window.removeEventListener("scroll", loadMore);
+    //return () => window.removeEventListener("scroll", loadMore);
   }, [loadPost, dispatch, count]);
 
   return (
@@ -41,5 +41,6 @@ const Thread = () => {
     </div>
   );
 };
+
 
 export default Thread;

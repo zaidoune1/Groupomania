@@ -18,19 +18,19 @@ const NewPostForm = () => {
       const data = new FormData();
       data.append("posterId", userData._id);
       data.append("message", message);
-      if (file) data.append("file", file);
-
-      dispatch(addPost(data));
-      dispatch(getPosts());
-      cancelPost();
+      if (file) data.append("picture", file)
+      dispatch(addPost(data)).then(
+        () => dispatch(getPosts()),cancelPost());//ajout en temps réel du commentaire, et annulation
+     
     } else {
-      alert("Veuillez entrer un message");
+      alert("Veuillez insérer du contenu !");
     }
+    
   };
 
   const cancelPost = () => {
     setMessage("");
-    setPostPicture("");
+    setPostPicture(null);
     setFile("");
   };
 
@@ -51,8 +51,7 @@ const NewPostForm = () => {
         <>
           <NavLink to="/profil">
             <div className="user-info">
-              <img src={userData.picture} alt="user-img" />
-              <h3>{userData.pseudo}</h3>
+              <img src={userData.picture} alt="utilisateur connecté" />
             </div>
           </NavLink>
           <div className="post-form">
@@ -63,10 +62,10 @@ const NewPostForm = () => {
               onChange={(e) => setMessage(e.target.value)}
               value={message}
             />
-            {message || postPicture >= 1 ? (
+            {message || postPicture ? (
               <li className="card-container">
                 <div className="card-left">
-                  <img src={userData.picture} alt="user-pic" />
+                  <img src={userData.picture} alt="utilisateur connecté" />
                 </div>
                 <div className="card-right">
                   <div className="card-hearder">
@@ -76,8 +75,14 @@ const NewPostForm = () => {
                     <span>{timestampParser(Date.now())}</span>
                   </div>
                   <div className="content">
-                    <p>{message}</p>
-                    <img src={postPicture} alt="" />
+                  {!message ? ( <span></span>)
+                    : (
+                           <p>{message}</p> )} 
+                   <div className="card-image"> {!postPicture ? ( <span></span>)
+                    : (
+                    <img src={postPicture} alt="publication d'un utilisateur"></img>
+                    )}
+                    </div>
                   </div>
                 </div>
               </li>
@@ -85,7 +90,7 @@ const NewPostForm = () => {
             <div className="footer-form">
               <div className="icon">
                 <>
-                  <img src="./img/icons/picture.svg" alt="img" />
+                  <img src="./img/icons/picture.svg" alt="icone d'upload de fichier" />
                   <input
                   aria-label="upload-picture"
                     type="file"
@@ -99,9 +104,15 @@ const NewPostForm = () => {
               {!isEmpty(errors.format) && <p>{errors.format}</p>}
               {!isEmpty(errors.maxSize) && <p>{errors.maxSize}</p>}
               <div className="btn-send">
-                <button className="send" onClick={handlePost}>
-                  Envoyer
+              <button className="send" onClick={handlePost}>
+                  Partager
                 </button>
+              {message || postPicture || file ? (
+                <button className="cancel" onClick={cancelPost}>
+                  Annuler
+                </button>
+              ) : null}
+          
               </div>
             </div>
           </div>

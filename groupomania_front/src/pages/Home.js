@@ -4,16 +4,24 @@ import Thread from "../components/Thread";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
+
   return (
     <div>
       <Navbar/>     
     <div className="home">
       <div className="main">
         <div className="home-header">
-      <NewPostForm /> 
+       <NewPostForm /> 
         </div>
-      <Thread />
-      </div>
+        
+        <Thread />
+        </div>
+        
+       
+        
+
+      
+      
     </div>
     </div>
   );

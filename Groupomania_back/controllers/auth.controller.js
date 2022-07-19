@@ -11,23 +11,22 @@ const createToken = (id) => {
 };
 
 module.exports.signUp = async (req, res) => {
-  const { pseudo, email, password } = req.body; //"déstructuré" càd pseudo= req.body.pseudo ; email = req.body.email ; etc...
+  const { pseudo, email, password } = req.body;
 
   try {
-    const user = await UserModel.create({ pseudo, email, password }); //Lorsqu'on veut créer un utilisateur, ces trois éléments obligatoires doivent être présents, sinon ça passe au catch en dessous.
+    const user = await UserModel.create({ pseudo, email, password });
     res.status(201).json({ user: user._id });
   } catch (err) {
+    // géré par error_utils
     const errors = signUpErrors(err);
     res.status(200).send({ errors });
   }
 };
 
+
 module.exports.signIn = async (req, res) => {
   const { email, password } = req.body; //destructuring comme dans le signUp, on pourrait également faire comme suit:
-  /*
-    const email = req.body.email
-    const password = req.body.password
-    */
+
 
   try {
     const user = await UserModel.login(email, password);

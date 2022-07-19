@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../AppContext";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
 import { likePost, unlikePost } from "../../actions/post.actions";
 
@@ -26,11 +24,12 @@ const LikeButton = ({ post }) => {
 
   return (
     <div className="like-container">
+      
       {uid && liked === false && (
-        <img src="./img/icons/heart.svg" onClick={like} alt='like' />
+        <img src="./img/icons/heart.svg" onClick={like} alt="bouton j'aime" />
       )}
       {uid && liked && (
-        <img src="./img/icons/heart-filled.svg" onClick={unlike} alt='unlike' />
+        <img src="./img/icons/heart-filled.svg" onClick={unlike} alt="bouton je n'aime plus" />
       )}
       <span>{post.likers.length}</span>
     </div>

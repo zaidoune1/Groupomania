@@ -8,5 +8,6 @@ export default combineReducers({
   userReducer,
   usersReducer,
   postReducer,
-  errorReducer
+  errorReducer,
+  
 });
